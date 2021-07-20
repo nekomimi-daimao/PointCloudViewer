@@ -1,5 +1,4 @@
 using MessagePack;
-using UnityEngine;
 
 namespace Share
 {
@@ -11,7 +10,7 @@ namespace Share
         public ulong Identify;
 
         [Key(1)]
-        public Vector3 Position;
+        public UnityEngine.Vector3 Position;
 
         [Key(2)]
         public float Confidence;
