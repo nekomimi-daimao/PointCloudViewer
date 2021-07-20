@@ -22,7 +22,7 @@ namespace Device
         {
             await UniTask.Yield();
 
-            Observable.Interval(TimeSpan.FromSeconds(1))
+            Observable.Interval(TimeSpan.FromMilliseconds(100))
                 .TakeUntilDestroy(this)
                 .Subscribe(OnDevicePose);
 
