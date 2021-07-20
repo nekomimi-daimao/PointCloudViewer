@@ -4,12 +4,12 @@ using UnityEngine.UI;
 
 namespace Share
 {
-    public class TextAnchor : MonoBehaviour
+    public class AnchorWithMemo : MonoBehaviour
     {
         [SerializeField]
         private Text _text = null;
 
-        public string Text
+        public string Memo
         {
             get => _text.text;
             set => _text.text = value;
