@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Share
 {
+    [System.Serializable]
     [MessagePackObject]
     public class IdentifiedPoint
     {
@@ -11,6 +12,9 @@ namespace Share
 
         [Key(1)]
         public Vector3 Position;
+
+        [Key(2)]
+        public float Confidence;
 
         public byte[] Serialize()
         {

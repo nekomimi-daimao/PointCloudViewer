@@ -30,19 +30,21 @@ namespace Device
             var trackable = pointCloudManager.trackables;
             foreach (var pointCloud in trackable)
             {
-                if (!pointCloud.identifiers.HasValue || !pointCloud.positions.HasValue)
+                if (!pointCloud.identifiers.HasValue || !pointCloud.positions.HasValue || !pointCloud.confidenceValues.HasValue)
                 {
                     continue;
                 }
                 var identifiers = pointCloud.identifiers.Value;
-                var pos = pointCloud.positions.Value;
+                var position = pointCloud.positions.Value;
+                var confidence = pointCloud.confidenceValues.Value;
 
                 for (var count = 0; count < identifiers.Length; count++)
                 {
                     _cacheIdentifiedPoint.Add(new IdentifiedPoint
                     {
                         Identify = identifiers[count],
-                        Position = pos[count]
+                        Position = position[count],
+                        Confidence = confidence[count],
                     });
                 }
             }

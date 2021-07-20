@@ -459,7 +459,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 7974369584624880190, guid: 5fc1e520452194aa2887aba572a1c9db, type: 3}
-  pointCloudCounter: {fileID: 1591872509}
+  pointCloudHolder: {fileID: 1591872509}
 --- !u!1 &1659859597
 GameObject:
   m_ObjectHideFlags: 0
