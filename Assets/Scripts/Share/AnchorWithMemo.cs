@@ -40,7 +40,7 @@ namespace Share
                     var look = _cameraTs.position - Position;
                     if (look != Vector3.zero)
                     {
-                        textParentTs.rotation = Quaternion.LookRotation(look, Vector3.up);
+                        textParentTs.rotation = Quaternion.LookRotation(-look, Vector3.up);
                     }
                 });
         }

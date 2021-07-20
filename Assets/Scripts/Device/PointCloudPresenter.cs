@@ -16,6 +16,7 @@ namespace Device
 
         private PointViewPool pointViewPool;
         private readonly Dictionary<ulong, Transform> _points = new Dictionary<ulong, Transform>();
+        public int Count => _points.Count;
 
         private void Start()
         {
