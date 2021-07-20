@@ -35,7 +35,14 @@ namespace Share
 
             Observable.EveryUpdate()
                 .TakeUntilDisable(gameObject)
-                .Subscribe(_ => { textParentTs.rotation = Quaternion.Euler(0f, -_cameraTs.eulerAngles.y, 0f); });
+                .Subscribe(_ =>
+                {
+                    var look = _cameraTs.position - Position;
+                    if (look != Vector3.zero)
+                    {
+                        textParentTs.rotation = Quaternion.LookRotation(look, Vector3.up);
+                    }
+                });
         }
     }
 }
