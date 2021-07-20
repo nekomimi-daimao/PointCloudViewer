@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using Share;
 using UniRx;
 using UnityEngine;
@@ -17,14 +18,18 @@ namespace Device
         [SerializeField]
         private Transform device;
 
-        private void Awake()
+        private async UniTaskVoid Start()
         {
-            pointCloudHolder.PointChanged
-                .TakeUntilDestroy(this).Subscribe(OnPointChanged);
+            await UniTask.Yield();
 
-            Observable.EveryFixedUpdate()
+            Observable.Interval(TimeSpan.FromSeconds(1))
                 .TakeUntilDestroy(this)
                 .Subscribe(OnDevicePose);
+
+            await UniTask.WaitUntil(() => ARSession.state == ARSessionState.SessionTracking);
+
+            pointCloudHolder.PointChanged
+                .TakeUntilDestroy(this).Subscribe(OnPointChanged);
         }
 
         private void OnPointChanged(ARPointCloudChangedEventArgs _)

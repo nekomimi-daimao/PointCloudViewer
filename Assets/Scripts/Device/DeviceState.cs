@@ -10,14 +10,17 @@ namespace Device
     public class DeviceState : MonoBehaviour
     {
         [SerializeField]
-        private AnchorWithMemo _anchorWithMemo = null;
+        private AnchorWithMemo anchorWithMemo = null;
 
         [SerializeField]
-        private PointCloudPresenter _pointCloudPresenter = default;
+        private PointCloudPresenter pointCloudPresenter = default;
+
+        [SerializeField]
+        private UDPClientHolder udpClientHolder;
 
         private void OnEnable()
         {
-            _style = new GUIStyle {fontSize = 20, normal = {textColor = Color.green}};
+            _style = new GUIStyle {fontSize = 30, normal = {textColor = Color.green}};
 
             var cameraTs = Camera.main?.transform;
             if (cameraTs == null)
@@ -26,7 +29,7 @@ namespace Device
             }
             Observable.EveryUpdate()
                 .TakeUntilDisable(gameObject)
-                .Subscribe(_ => { _anchorWithMemo.Memo = $"{cameraTs.position}{Environment.NewLine}{cameraTs.eulerAngles}"; });
+                .Subscribe(_ => { anchorWithMemo.Memo = $"{cameraTs.position}{Environment.NewLine}{cameraTs.eulerAngles}"; });
         }
 
         private readonly Rect _rect = new Rect(40, 100, Screen.width, Screen.height);
@@ -44,7 +47,11 @@ namespace Device
             _stringBuilder.Clear();
 
             _stringBuilder.AppendLine($"SessionState {ARSession.state}");
-            _stringBuilder.AppendLine($"PointCount {_pointCloudPresenter.Count}");
+            _stringBuilder.AppendLine($"PointCount {pointCloudPresenter.Count}");
+            foreach (var ipEndPoint in udpClientHolder.SendTarget)
+            {
+                _stringBuilder.AppendLine($"SendTarget {ipEndPoint}");
+            }
 
             return _stringBuilder.ToString();
         }

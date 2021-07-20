@@ -576,8 +576,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 600987cfa80ca44bba3aee7d299f08f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _anchorWithMemo: {fileID: 711401219}
-  _pointCloudPresenter: {fileID: 1591872511}
+  anchorWithMemo: {fileID: 711401219}
+  pointCloudPresenter: {fileID: 1591872511}
+  udpClientHolder: {fileID: 787786150}
 --- !u!114 &1591872513
 MonoBehaviour:
   m_ObjectHideFlags: 0

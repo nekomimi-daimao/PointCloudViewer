@@ -28,7 +28,7 @@ namespace Device
 
         private void OnChanged(ARPointCloudChangedEventArgs arg)
         {
-            var reserved = _points.Keys;
+            var reserved = _points.Keys.ToArray();
             var identifiedPoints = pointCloudHolder.CurrentPoints();
 
             foreach (var l in reserved)

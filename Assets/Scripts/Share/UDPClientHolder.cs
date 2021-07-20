@@ -13,7 +13,7 @@ namespace Share
     public class UDPClientHolder : MonoBehaviour
     {
         private UdpClient _udpClient = null;
-        public const int Port = 1111;
+        public const int Port = 3210;
         public string Address { get; private set; }
 
         private readonly Subject<byte[]> _receive = new Subject<byte[]>();
@@ -22,6 +22,7 @@ namespace Share
         private void Awake()
         {
             Address = GetAddress();
+
             _udpClient = new UdpClient(new IPEndPoint(IPAddress.Any, Port))
             {
                 EnableBroadcast = true
@@ -38,7 +39,7 @@ namespace Share
             _udpClient = null;
         }
 
-        public readonly List<IPEndPoint> SendTarget = new List<IPEndPoint>();
+        public readonly HashSet<IPEndPoint> SendTarget = new HashSet<IPEndPoint>();
 
         public void Send(byte[] data)
         {
@@ -58,19 +59,32 @@ namespace Share
                 {
                     break;
                 }
-                var receiveData = await _udpClient.ReceiveAsync();
-                if (token.IsCancellationRequested)
+                try
                 {
-                    break;
-                }
+                    var receiveData = await _udpClient.ReceiveAsync();
 
-                if (BufferPing.SequenceEqual(receiveData.Buffer))
+                    if (receiveData.RemoteEndPoint.ToString().StartsWith(Address))
+                    {
+                        continue;
+                    }
+
+                    if (token.IsCancellationRequested)
+                    {
+                        break;
+                    }
+
+                    if (BufferPing.SequenceEqual(receiveData.Buffer))
+                    {
+                        SendTarget.Add(receiveData.RemoteEndPoint);
+                        continue;
+                    }
+
+                    _receive?.OnNext(receiveData.Buffer);
+                }
+                catch (Exception e)
                 {
-                    SendTarget.Add(receiveData.RemoteEndPoint);
-                    continue;
+                    Debug.LogException(e);
                 }
-
-                _receive?.OnNext(receiveData.Buffer);
             }
         }
 

@@ -17,6 +17,7 @@ namespace Viewer
             var pointDateSupplier = _pointDataSupplier.GetComponent<IPointDateSupplier>();
             pointDateSupplier?.OnReceivePointData()
                 .TakeUntilDisable(this)
+                .ObserveOn(Scheduler.MainThread)
                 .Subscribe(OnReceived);
         }
 

@@ -15,15 +15,15 @@ namespace Share
             set => _text.text = value;
         }
 
-        private Transform _selfTs;
-        public Vector3 Position => _selfTs.position;
-        public Quaternion Rotation => _selfTs.rotation;
+        public Transform SelfTs { get; private set; }
+        public Vector3 Position => SelfTs.position;
+        public Quaternion Rotation => SelfTs.rotation;
 
         private Transform _cameraTs = null;
 
         private void OnEnable()
         {
-            _selfTs = this.transform;
+            SelfTs = this.transform;
             _cameraTs = Camera.main?.transform;
 
             if (_text == null || _cameraTs == null)
