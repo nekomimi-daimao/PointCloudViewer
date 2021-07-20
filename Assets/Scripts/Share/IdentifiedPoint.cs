@@ -26,21 +26,4 @@ namespace Share
             return MessagePackSerializer.Deserialize<IdentifiedPoint>(buffer);
         }
     }
-
-    [MessagePackObject]
-    public class IdentifiedPointArray
-    {
-        [Key(0)]
-        public IdentifiedPoint[] Array;
-
-        public byte[] Serialize()
-        {
-            return MessagePackSerializer.Serialize(this);
-        }
-
-        public static IdentifiedPointArray Deserialize(byte[] buffer)
-        {
-            return MessagePackSerializer.Deserialize<IdentifiedPointArray>(buffer);
-        }
-    }
 }
