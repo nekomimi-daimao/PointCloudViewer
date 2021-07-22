@@ -7,7 +7,7 @@ using UnityEngine.XR.ARFoundation;
 
 namespace Device
 {
-    public class PackedMessageSender : MonoBehaviour
+    public sealed class PackedMessageSender : MonoBehaviour
     {
         [SerializeField]
         private UDPClientHolder udpClientHolder;

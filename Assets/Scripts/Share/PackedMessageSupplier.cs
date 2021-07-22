@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Share
 {
-    public class PackedMessageSupplier : MonoBehaviour
+    public sealed class PackedMessageSupplier : MonoBehaviour
     {
         [SerializeField]
         private UDPClientHolder clientHolder;

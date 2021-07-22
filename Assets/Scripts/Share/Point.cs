@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Share
 {
-    public class Point : MonoBehaviour
+    public sealed class Point : MonoBehaviour
     {
         [SerializeField]
         public IdentifiedPoint IdentifiedPoint;

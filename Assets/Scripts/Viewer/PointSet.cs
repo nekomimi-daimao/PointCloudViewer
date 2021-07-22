@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Viewer
 {
-    public class PointSet : MonoBehaviour
+    public sealed class PointSet : MonoBehaviour
     {
         private const string DateFormat = "yyyyMMdd_HHmmssff";
 

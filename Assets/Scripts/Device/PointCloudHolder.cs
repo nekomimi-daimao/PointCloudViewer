@@ -7,7 +7,7 @@ using UnityEngine.XR.ARFoundation;
 
 namespace Device
 {
-    public class PointCloudHolder : MonoBehaviour
+    public sealed class PointCloudHolder : MonoBehaviour
     {
         private const int IntervalMsec = 100;
 

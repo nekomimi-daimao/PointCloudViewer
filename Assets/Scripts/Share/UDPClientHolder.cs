@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Share
 {
-    public class UDPClientHolder : MonoBehaviour
+    public sealed class UDPClientHolder : MonoBehaviour
     {
         private UdpClient _udpClient = null;
         public const int Port = 3210;

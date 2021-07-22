@@ -4,7 +4,7 @@ using Share;
 using UniRx;
 using UnityEngine;
 
-public class DeviceViewer : MonoBehaviour
+public sealed class DeviceViewer : MonoBehaviour
 {
     [SerializeField]
     private AnchorWithMemo anchorWithMemo;

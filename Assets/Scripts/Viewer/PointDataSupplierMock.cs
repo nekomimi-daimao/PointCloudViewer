@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Viewer
 {
-    public class PointDataSupplierMock : MonoBehaviour, IPointDateSupplier
+    public sealed class PointDataSupplierMock : MonoBehaviour, IPointDateSupplier
     {
         private readonly Subject<PackedMessage.IdentifiedPointArray> _supply
             = new Subject<PackedMessage.IdentifiedPointArray>();

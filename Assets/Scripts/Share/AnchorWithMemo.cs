@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Share
 {
-    public class AnchorWithMemo : MonoBehaviour
+    public sealed class AnchorWithMemo : MonoBehaviour
     {
         [SerializeField]
         private Text _text = null;

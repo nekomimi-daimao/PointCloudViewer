@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Viewer
 {
-    public class PointColorScheme : MonoBehaviour
+    public sealed class PointColorScheme : MonoBehaviour
     {
         [SerializeField]
         private PointRoot pointRoot;

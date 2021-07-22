@@ -4,7 +4,7 @@ namespace Share
 {
     [System.Serializable]
     [MessagePackObject]
-    public class IdentifiedPoint
+    public sealed class IdentifiedPoint
     {
         [Key(0)]
         public ulong Identify;

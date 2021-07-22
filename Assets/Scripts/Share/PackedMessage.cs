@@ -4,7 +4,7 @@ using MessagePack.Resolvers;
 
 namespace Share
 {
-    public class PackedMessage
+    public static class PackedMessage
     {
         [UnityEngine.RuntimeInitializeOnLoadMethod]
         private static void Register()
@@ -28,7 +28,7 @@ namespace Share
         }
 
         [MessagePackObject]
-        public class IdentifiedPointArray : IPackedMessage
+        public sealed class IdentifiedPointArray : IPackedMessage
         {
             [Key(0)]
             public IdentifiedPoint[] Array;
@@ -48,7 +48,7 @@ namespace Share
         }
 
         [MessagePackObject]
-        public class DevicePose : IPackedMessage
+        public sealed class DevicePose : IPackedMessage
         {
             [Key(0)]
             public UnityEngine.Vector3 Position;

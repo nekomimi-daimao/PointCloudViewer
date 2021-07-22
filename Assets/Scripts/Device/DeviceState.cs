@@ -7,7 +7,7 @@ using UnityEngine.XR.ARFoundation;
 
 namespace Device
 {
-    public class DeviceState : MonoBehaviour
+    public sealed class DeviceState : MonoBehaviour
     {
         [SerializeField]
         private AnchorWithMemo anchorWithMemo = null;

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Viewer
 {
-    public class PointRoot : MonoBehaviour
+    public sealed class PointRoot : MonoBehaviour
     {
         [SerializeField]
         private PointSet pointSetPrefab;

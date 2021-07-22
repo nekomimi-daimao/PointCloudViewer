@@ -7,7 +7,7 @@ using UnityEngine.XR.ARFoundation;
 
 namespace Device
 {
-    public class PointCloudPresenter : MonoBehaviour
+    public sealed class PointCloudPresenter : MonoBehaviour
     {
         [SerializeField]
         private Point pointPrefab;
