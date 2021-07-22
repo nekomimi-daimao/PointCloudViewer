@@ -83,7 +83,10 @@ namespace Share
                 }
                 catch (Exception e)
                 {
-                    Debug.LogException(e);
+                    if (!(e is ObjectDisposedException))
+                    {
+                        Debug.LogException(e);
+                    }
                 }
             }
         }
