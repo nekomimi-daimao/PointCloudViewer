@@ -14,6 +14,8 @@ namespace Device
         [SerializeField]
         private ARPointCloudManager pointCloudManager = default;
 
+        private Transform _cameraTs = null;
+
         public IObservable<ARPointCloudChangedEventArgs> PointChanged =>
             Observable.FromEvent<ARPointCloudChangedEventArgs>(
                     h => pointCloudManager.pointCloudsChanged += h,
@@ -26,6 +28,13 @@ namespace Device
         public IdentifiedPoint[] CurrentPoints()
         {
             _cacheIdentifiedPoint.Clear();
+
+            if (_cameraTs == null)
+            {
+                _cameraTs = Camera.main?.transform;
+            }
+            var cameraPos = _cameraTs?.position ?? Vector3.zero;
+            var cameraRot = _cameraTs?.rotation ?? Quaternion.identity;
 
             var trackable = pointCloudManager.trackables;
             foreach (var pointCloud in trackable)
@@ -45,6 +54,8 @@ namespace Device
                         Identify = identifiers[count],
                         Position = position[count],
                         Confidence = confidence[count],
+                        CameraPosition = cameraPos,
+                        CameraRotation = cameraRot,
                     });
                 }
             }

@@ -29,6 +29,9 @@ namespace Viewer
             {
                 time = time.AddSeconds(1);
 
+                var cameraPosition = UnityEngine.Random.insideUnitSphere;
+                var cameraRotation = UnityEngine.Random.rotation;
+                
                 var array = new PackedMessage.IdentifiedPointArray();
                 array.Array = Enumerable.Range(0, random.Next(10, 100))
                     .Select(_ => new IdentifiedPoint
@@ -36,6 +39,8 @@ namespace Viewer
                         Position = UnityEngine.Random.insideUnitSphere * 5f,
                         Identify = (ulong) random.Next(0, int.MaxValue),
                         Confidence = UnityEngine.Random.value,
+                        CameraPosition = cameraPosition,
+                        CameraRotation = cameraRotation,
                     }).ToArray();
                 array.Time = time;
 

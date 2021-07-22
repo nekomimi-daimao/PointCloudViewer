@@ -15,6 +15,12 @@ namespace Share
         [Key(2)]
         public float Confidence;
 
+        [Key(4)]
+        public UnityEngine.Vector3 CameraPosition;
+
+        [Key(5)]
+        public UnityEngine.Quaternion CameraRotation;
+
         public byte[] Serialize()
         {
             return MessagePackSerializer.Serialize(this);
