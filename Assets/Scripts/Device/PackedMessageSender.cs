@@ -35,6 +35,10 @@ namespace Device
         private void OnPointChanged(ARPointCloudChangedEventArgs _)
         {
             var identifiedPoints = pointCloudHolder.CurrentPoints();
+            if (identifiedPoints.Length == 0)
+            {
+                return;
+            }
             var array = new PackedMessage.IdentifiedPointArray
             {
                 Array = identifiedPoints,
