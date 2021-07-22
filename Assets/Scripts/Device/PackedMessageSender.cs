@@ -32,9 +32,8 @@ namespace Device
                 .TakeUntilDestroy(this).Subscribe(OnPointChanged);
         }
 
-        private void OnPointChanged(ARPointCloudChangedEventArgs _)
+        private void OnPointChanged(IdentifiedPoint[] identifiedPoints)
         {
-            var identifiedPoints = pointCloudHolder.CurrentPoints();
             if (identifiedPoints.Length == 0)
             {
                 return;

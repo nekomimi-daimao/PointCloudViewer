@@ -16,12 +16,13 @@ namespace Device
 
         private Transform _cameraTs = null;
 
-        public IObservable<ARPointCloudChangedEventArgs> PointChanged =>
+        public IObservable<IdentifiedPoint[]> PointChanged =>
             Observable.FromEvent<ARPointCloudChangedEventArgs>(
                     h => pointCloudManager.pointCloudsChanged += h,
                     h => pointCloudManager.pointCloudsChanged -= h
                 )
-                .ThrottleFirst(TimeSpan.FromMilliseconds(IntervalMsec));
+                .ThrottleFirst(TimeSpan.FromMilliseconds(IntervalMsec))
+                .Select(args => CurrentPoints());
 
         private readonly List<IdentifiedPoint> _cacheIdentifiedPoint = new List<IdentifiedPoint>();
 
