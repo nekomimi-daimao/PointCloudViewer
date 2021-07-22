@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Share;
 using UniRx;
 using UnityEngine;
@@ -7,15 +8,19 @@ namespace Viewer
     public class PointRoot : MonoBehaviour
     {
         [SerializeField]
-        private PointSet pointSet;
+        private PointSet pointSetPrefab;
 
         [SerializeField]
         private GameObject _pointDataSupplier = null;
 
+        public IPointDateSupplier PointDateSupplier { get; private set; }
+
+        public readonly List<PointSet> PointSets = new List<PointSet>();
+
         private void Start()
         {
-            var pointDateSupplier = _pointDataSupplier.GetComponent<IPointDateSupplier>();
-            pointDateSupplier?.OnReceivePointData()
+            PointDateSupplier = _pointDataSupplier.GetComponent<IPointDateSupplier>();
+            PointDateSupplier?.OnReceivePointData()
                 .TakeUntilDisable(this)
                 .ObserveOn(Scheduler.MainThread)
                 .Subscribe(OnReceived);
@@ -23,8 +28,9 @@ namespace Viewer
 
         private void OnReceived(PackedMessage.IdentifiedPointArray array)
         {
-            var set = GameObject.Instantiate(pointSet, transform);
+            var set = GameObject.Instantiate(pointSetPrefab, transform);
             set.Init(array);
+            PointSets.Add(set);
         }
     }
 }

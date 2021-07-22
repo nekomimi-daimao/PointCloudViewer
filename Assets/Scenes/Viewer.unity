@@ -485,7 +485,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointPrefab: {fileID: 7668961800923461014, guid: 5fc1e520452194aa2887aba572a1c9db,
     type: 3}
-  IdentifiedPoints: []
+  Points: []
 --- !u!4 &1956175807
 Transform:
   m_ObjectHideFlags: 0
@@ -510,6 +510,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2146713308}
   - component: {fileID: 2146713307}
+  - component: {fileID: 2146713309}
   m_Layer: 0
   m_Name: PointRoot
   m_TagString: Untagged
@@ -529,7 +530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33f3b35cdab146668c26425c6927679b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointSet: {fileID: 1956175806}
+  pointSetPrefab: {fileID: 1956175806}
   _pointDataSupplier: {fileID: 1291014716}
 --- !u!4 &2146713308
 Transform:
@@ -546,6 +547,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2146713309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146713306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7039a4310c524862b8e52cc1f5d56b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointRoot: {fileID: 2146713307}
+  scheme:
+    value: 0
 --- !u!1001 &7963861312415604555
 PrefabInstance:
   m_ObjectHideFlags: 0

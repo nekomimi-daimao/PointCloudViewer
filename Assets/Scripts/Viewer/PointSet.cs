@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Share;
 using UnityEngine;
 
@@ -11,20 +12,25 @@ namespace Viewer
         private Point pointPrefab;
 
         [SerializeField]
-        private IdentifiedPoint[] IdentifiedPoints;
+        public Point[] Points;
 
         public PackedMessage.IdentifiedPointArray IdentifiedPointArray { get; private set; }
 
         public void Init(PackedMessage.IdentifiedPointArray identifiedPointsArray)
         {
             this.IdentifiedPointArray = identifiedPointsArray;
-            this.IdentifiedPoints = identifiedPointsArray.Array;
             this.gameObject.name = identifiedPointsArray.Time.ToString(DateFormat);
+
+            var pointsList = new List<Point>();
             var parentTs = this.transform;
             foreach (var identifiedPoint in identifiedPointsArray.Array)
             {
-                GameObject.Instantiate(point, identifiedPoint.Position, Quaternion.identity, parentTs);
+                var p = GameObject.Instantiate(pointPrefab, identifiedPoint.Position, Quaternion.identity, parentTs);
+                p.IdentifiedPoint = identifiedPoint;
+                p.gameObject.name = identifiedPoint.Identify.ToString();
+                pointsList.Add(p);
             }
+            Points = pointsList.ToArray();
         }
     }
 }
