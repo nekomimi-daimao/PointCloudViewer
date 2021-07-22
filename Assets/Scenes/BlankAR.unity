@@ -562,7 +562,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c683ed0a2b1b489ebe6e05fb26478ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1991751048033628659, guid: 5fc1e520452194aa2887aba572a1c9db, type: 3}
+  pointPrefab: {fileID: 7668961800923461014, guid: 5fc1e520452194aa2887aba572a1c9db,
+    type: 3}
   pointCloudHolder: {fileID: 1591872509}
 --- !u!114 &1591872512
 MonoBehaviour:

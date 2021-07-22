@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Share;
 using UniRx;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
@@ -9,18 +10,18 @@ namespace Device
     public class PointCloudPresenter : MonoBehaviour
     {
         [SerializeField]
-        private Transform prefab;
+        private Point pointPrefab;
 
         [SerializeField]
         private PointCloudHolder pointCloudHolder;
 
         private PointViewPool pointViewPool;
-        private readonly Dictionary<ulong, Transform> _points = new Dictionary<ulong, Transform>();
+        private readonly Dictionary<ulong, Point> _points = new Dictionary<ulong, Point>();
         public int Count => _points.Count;
 
         private void Start()
         {
-            pointViewPool = new PointViewPool(prefab, this.transform);
+            pointViewPool = new PointViewPool(pointPrefab, this.transform);
             pointViewPool.PreloadAsync(100, 10).Subscribe();
             pointCloudHolder.PointChanged
                 .TakeUntilDestroy(this).Subscribe(OnChanged);
@@ -45,11 +46,11 @@ namespace Device
             {
                 if (_points.TryGetValue(identifiedPoint.Identify, out var target))
                 {
-                    target.position = identifiedPoint.Position;
+                    target.transform.position = identifiedPoint.Position;
                     continue;
                 }
                 var ts = pointViewPool.Rent();
-                ts.position = identifiedPoint.Position;
+                ts.transform.position = identifiedPoint.Position;
                 _points[identifiedPoint.Identify] = ts;
             }
         }

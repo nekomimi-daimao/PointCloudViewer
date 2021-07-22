@@ -483,7 +483,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4638321bbd5a045f5a6b4d855af9e2aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  point: {fileID: 4195970327772940331, guid: 5fc1e520452194aa2887aba572a1c9db, type: 3}
+  pointPrefab: {fileID: 7668961800923461014, guid: 5fc1e520452194aa2887aba572a1c9db,
+    type: 3}
+  IdentifiedPoints: []
 --- !u!4 &1956175807
 Transform:
   m_ObjectHideFlags: 0

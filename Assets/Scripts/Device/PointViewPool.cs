@@ -1,22 +1,23 @@
+using Share;
 using UniRx.Toolkit;
 using UnityEngine;
 
 namespace Device
 {
-    public sealed class PointViewPool : ObjectPool<Transform>
+    public sealed class PointViewPool : ObjectPool<Point>
     {
-        private readonly Transform _prefab = default;
+        private readonly Point _pointPrefab = default;
         private readonly Transform _parentTs = default;
 
-        public PointViewPool(Transform prefab, Transform parentTs)
+        public PointViewPool(Point pointPrefab, Transform parentTs)
         {
-            _prefab = prefab;
+            _pointPrefab = pointPrefab;
             _parentTs = parentTs;
         }
 
-        protected override Transform CreateInstance()
+        protected override Point CreateInstance()
         {
-            return GameObject.Instantiate(_prefab, _parentTs);
+            return GameObject.Instantiate(_pointPrefab, _parentTs);
         }
     }
 }
