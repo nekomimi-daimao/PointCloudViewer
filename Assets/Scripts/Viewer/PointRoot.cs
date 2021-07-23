@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Share;
 using UniRx;
 using UnityEngine;
@@ -11,16 +13,21 @@ namespace Viewer
         private PointSet pointSetPrefab;
 
         [SerializeField]
-        private GameObject _pointDataSupplier = null;
+        private GameObject[] pointDataSuppliers = null;
 
-        public IPointDataSupplier PointDataSupplier { get; private set; }
+        public IObservable<PackedMessage.IdentifiedPointArray> PointDataSupplier { get; private set; }
 
         public readonly List<PointSet> PointSets = new List<PointSet>();
 
         private void Start()
         {
-            PointDataSupplier = _pointDataSupplier.GetComponent<IPointDataSupplier>();
-            PointDataSupplier?.OnReceivePointData()
+            PointDataSupplier = pointDataSuppliers
+                .Select(o => o?.GetComponent<IPointDataSupplier>())
+                .Where(supplier => supplier != null)
+                .Select((supplier => supplier.OnReceivePointData()))
+                .Merge();
+            
+            PointDataSupplier
                 .TakeUntilDisable(this)
                 .ObserveOn(Scheduler.MainThread)
                 .Subscribe(OnReceived);

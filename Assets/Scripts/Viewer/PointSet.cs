@@ -6,7 +6,7 @@ namespace Viewer
 {
     public sealed class PointSet : MonoBehaviour
     {
-        private const string DateFormat = "yyyyMMdd_HHmmssff";
+        public const string DateFormat = "yyyyMMdd_HHmmssff";
 
         [SerializeField]
         private Point pointPrefab;
