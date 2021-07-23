@@ -3,7 +3,7 @@ using Share;
 
 namespace Viewer
 {
-    public interface IPointDateSupplier
+    public interface IPointDataSupplier
     {
         public IObservable<PackedMessage.IdentifiedPointArray> OnReceivePointData();
     }

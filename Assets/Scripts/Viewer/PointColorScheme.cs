@@ -30,7 +30,7 @@ namespace Viewer
 
             await UniTask.Yield();
 
-            pointRoot.PointDateSupplier?.OnReceivePointData().TakeUntilDisable(this)
+            pointRoot.PointDataSupplier?.OnReceivePointData().TakeUntilDisable(this)
                 .Throttle(TimeSpan.FromMilliseconds(100))
                 .Subscribe(_ => ForceChangeScheme());
         }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Viewer
 {
-    public sealed class PointerDataSupplier : MonoBehaviour, IPointDateSupplier
+    public sealed class PointDataSupplierUdp : MonoBehaviour, IPointDataSupplier
     {
         [SerializeField]
         private PackedMessageSupplier packedMessageSupplier;

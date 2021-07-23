@@ -13,14 +13,14 @@ namespace Viewer
         [SerializeField]
         private GameObject _pointDataSupplier = null;
 
-        public IPointDateSupplier PointDateSupplier { get; private set; }
+        public IPointDataSupplier PointDataSupplier { get; private set; }
 
         public readonly List<PointSet> PointSets = new List<PointSet>();
 
         private void Start()
         {
-            PointDateSupplier = _pointDataSupplier.GetComponent<IPointDateSupplier>();
-            PointDateSupplier?.OnReceivePointData()
+            PointDataSupplier = _pointDataSupplier.GetComponent<IPointDataSupplier>();
+            PointDataSupplier?.OnReceivePointData()
                 .TakeUntilDisable(this)
                 .ObserveOn(Scheduler.MainThread)
                 .Subscribe(OnReceived);
