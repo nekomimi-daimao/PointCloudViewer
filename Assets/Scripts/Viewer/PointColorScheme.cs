@@ -41,6 +41,13 @@ namespace Viewer
             scheme.SetValueAndForceNotify(scheme.Value);
         }
 
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            ForceChangeScheme();
+        }
+#endif
+
         private void OnSchemeChanged(ColorScheme s)
         {
             var func = Scheme[s];
