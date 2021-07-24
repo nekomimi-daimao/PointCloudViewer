@@ -10,6 +10,15 @@ namespace Share
 
         private Material _material = null;
 
+        public void ChangeFilter(Func<IdentifiedPoint, bool> filterScheme)
+        {
+            var active = filterScheme(IdentifiedPoint);
+            if (this.gameObject.activeSelf != active)
+            {
+                this.gameObject.SetActive(active);
+            }
+        }
+
         public void ChangeColor(Func<IdentifiedPoint, Color> colorScheme)
         {
             if (_material == null)

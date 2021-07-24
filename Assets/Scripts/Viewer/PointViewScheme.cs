@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Viewer
 {
-    public sealed class PointColorScheme : MonoBehaviour
+    public sealed class PointViewScheme : MonoBehaviour
     {
         [SerializeField]
         private PointRoot pointRoot;
@@ -21,45 +21,68 @@ namespace Viewer
         }
 
         [SerializeField]
-        public ReactiveProperty<ColorScheme> scheme = new ReactiveProperty<ColorScheme>(ColorScheme.White);
+        public ReactiveProperty<ColorScheme> Scheme = new ReactiveProperty<ColorScheme>(ColorScheme.White);
+
+        [SerializeField]
+        public FloatReactiveProperty Distance = new FloatReactiveProperty(5f);
+
+        [SerializeField]
+        public FloatReactiveProperty Confidence = new FloatReactiveProperty(0.5f);
 
         private async void OnEnable()
         {
-            scheme.TakeUntilDisable(this)
+            Scheme.TakeUntilDisable(this)
                 .Subscribe(OnSchemeChanged);
+
+            Distance.Merge(Confidence)
+                .TakeUntilDisable(this)
+                .Select(f => Scheme.Value)
+                .Subscribe(OnSchemeChanged);
+
+            ForceChangeSubject.TakeUntilDisable(this)
+                .Throttle(TimeSpan.FromMilliseconds(2000))
+                .Subscribe(_ => ForceChangeScheme());
 
             await UniTask.Yield();
 
             pointRoot.PointDataSupplier?.TakeUntilDisable(this)
-                .Throttle(TimeSpan.FromMilliseconds(100))
-                .Subscribe(_ => ForceChangeScheme());
+                .Subscribe(_ => ForceChangeSubject.OnNext(Unit.Default));
         }
+
+        private readonly Subject<Unit> ForceChangeSubject = new Subject<Unit>();
 
         [ContextMenu(nameof(ForceChangeScheme))]
         private void ForceChangeScheme()
         {
-            scheme.SetValueAndForceNotify(scheme.Value);
+            Scheme.SetValueAndForceNotify(Scheme.Value);
         }
 
 #if UNITY_EDITOR
         private void OnValidate()
         {
-            ForceChangeScheme();
+            ForceChangeSubject.OnNext(Unit.Default);
         }
 #endif
 
         private void OnSchemeChanged(ColorScheme s)
         {
-            var func = Scheme[s];
+            var colorScheme = SchemeTable[s];
 
             var points = pointRoot.PointSets.SelectMany(set => set.Points).ToArray();
             foreach (var p in points)
             {
-                p.ChangeColor(func);
+                p.ChangeFilter(FilterScheme);
+                p.ChangeColor(colorScheme);
             }
         }
 
-        private readonly Dictionary<ColorScheme, Func<IdentifiedPoint, Color>> Scheme
+        private bool FilterScheme(IdentifiedPoint arg)
+        {
+            return arg.Confidence > Confidence.Value
+                   && Vector3.SqrMagnitude(arg.Position - arg.CameraPosition) <= Mathf.Pow(Distance.Value, 2);
+        }
+
+        private readonly Dictionary<ColorScheme, Func<IdentifiedPoint, Color>> SchemeTable
             = new Dictionary<ColorScheme, Func<IdentifiedPoint, Color>>
             {
                 {ColorScheme.White, SchemeWhite},
