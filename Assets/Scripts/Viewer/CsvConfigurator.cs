@@ -135,8 +135,6 @@ namespace Viewer
                 }
 
                 using var reader = fileInfo.OpenText();
-                // ignore header
-                await reader.ReadLineAsync();
 
                 lineCache.Clear();
                 while (!reader.EndOfStream)
