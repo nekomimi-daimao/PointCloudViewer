@@ -11,6 +11,8 @@
 #pragma warning disable SA1312 // Variable names should begin with lower-case letter
 #pragma warning disable SA1649 // File name should match first type name
 
+#pragma warning disable CS0436
+
 namespace MessagePack.Resolvers
 {
     using System;
@@ -397,6 +399,8 @@ namespace MessagePack.Formatters.Share
         }
     }
 }
+
+#pragma warning restore CS0436
 
 #pragma warning restore 168
 #pragma warning restore 414
